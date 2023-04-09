@@ -24,11 +24,13 @@ async function handleSearchPhotos(evt) {
     summaryHits = 0;
 
     galleryEl.innerHTML = '';
+    loadMoreBtnEl.classList.add('is-hidden');
     
     if (!searchQuery) return;
 
     try {
         const { data } = await getPhotos(searchQuery, page);
+        console.log({ data });
 
         if (data.totalHits === 0) {
             throw new Error();
@@ -43,8 +45,6 @@ async function handleSearchPhotos(evt) {
             
         if (data.totalHits > 40) {
             loadMoreBtnEl.classList.remove('is-hidden');
-        } else {
-            loadMoreBtnEl.classList.add('is-hidden');
         }
 
     } catch (error) {
